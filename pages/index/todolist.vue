@@ -1,7 +1,7 @@
 <template>
 	<div id="todolist_container">
 		<ul class="todolist_list">
-			<li class="todolist_list_item" v-for="(item, key) in list" :key="key">
+			<li class="todolist_list_item" v-for="(item, key) in getUnfinishedTodo($store.state.todoList)" :key="key">
 				<i 
 				:class="[
 					'todolist_list_item--icons',
@@ -37,7 +37,6 @@
 export default {
 	data: function() {
 		return {
-			list:this.getUnfinishedTodo(this.$store.state.todoList),
 			typeClass: {
 				1: 'type-a',
 				2: 'type-b',
@@ -60,7 +59,7 @@ export default {
 		 * */
 		bindPickerChange(e,id) {
 			this.index = e.detail.value;
-			let newData = this.$copyObject(this.list[id]);
+			let newData = this.$copyObject(this.$store.state.todoList[id]);
 			newData.type = this.index+1;
 			this.$store.commit('changeTodoData',newData);
 		},
@@ -82,7 +81,9 @@ export default {
 		 * @param {Number} id 当前任务key值
 		 * */
 		todoFinished(id){
-			// 
+			let newData = this.$copyObject(this.$store.state.todoList[id]);
+			newData.finished = true;
+			this.$store.commit('changeTodoData',newData);
 		}
 	},
 	filters: {

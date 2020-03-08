@@ -30,8 +30,6 @@ const store = new Vuex.Store({
 		 * */
 		addNewTodo(state,newTodo) {
 			Vue.set(state.todoList,newTodo.addTime,newTodo);
-			// state.todoList[newTodo.addTime] = newTodo;
-			console.log(state);
 		},
 		/** 
 		 * 修改已有数据参数值
@@ -50,6 +48,7 @@ const store = new Vuex.Store({
 			 这就导致了上面的修改无法刷新视图
 			 */
 			for (let key in state.todoList[newTodo.addTime]) {
+				// Vue.set(state.todoList[newTodo.addTime],key,newTodo[key]);
 				state.todoList[newTodo.addTime][key] = newTodo[key];
 			}
 		}
