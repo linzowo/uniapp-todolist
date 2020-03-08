@@ -1,8 +1,19 @@
 <template>
 	<div id="todolist_container">
 		<ul class="todolist_list">
-			<li class="todolist_list_item" v-for="(item, key) in $store.state.todoList" :key="key">
-				<i class="todolist_list_item--icons"></i>
+			<li class="todolist_list_item" v-for="(item, key) in list" :key="key">
+				<i 
+				:class="[
+					'todolist_list_item--icons',
+					{
+						todo_finished:item.finished,
+						'uni-icons':item.finished
+					}
+				]"
+				@click="todoFinished(key)"
+				>
+					{{item.finished?'':''}}
+				</i>
 
 				<span class="todolist_list_item--content">
 					{{ item.content }}
@@ -26,6 +37,7 @@
 export default {
 	data: function() {
 		return {
+			list:this.getUnfinishedTodo(this.$store.state.todoList),
 			typeClass: {
 				1: 'type-a',
 				2: 'type-b',
@@ -48,10 +60,33 @@ export default {
 		 * */
 		bindPickerChange(e,id) {
 			this.index = e.detail.value;
-			this.$store.commit('changeTodoDataType',{id,newType:this.index+1});
+			let newData = this.$copyObject(this.list[id]);
+			newData.type = this.index+1;
+			this.$store.commit('changeTodoData',newData);
+		},
+		/** 
+		 * 动态筛选数据中未完成的任务
+		 * @param {Object} todoList 包含所有任务的对象
+		 * @return {Object} 完成筛选后的任务对象
+		 * */
+		getUnfinishedTodo(todoList){
+			let res = {}
+			for (let key in todoList) {
+				if(todoList[key].finished) continue;
+				res[key] = todoList[key];
+			}
+			return res;
+		},
+		/** 
+		 * 用户点击了完成任务的按钮，修改用户点击的任务状态为完成
+		 * @param {Number} id 当前任务key值
+		 * */
+		todoFinished(id){
+			// 
 		}
 	},
-	filters: {},
+	filters: {
+	},
 	mounted: function() {}
 };
 </script>

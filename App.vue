@@ -64,4 +64,11 @@ i {
 	border-radius: 3px;
 }
 
+/* 任务完成 */
+.todo_finished{
+	text-align: center;
+	color: #ccc;
+	font-size: 14px;
+}
+
 </style>

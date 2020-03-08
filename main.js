@@ -21,6 +21,17 @@ Vue.filter('dateFormat', (dateStr, pattern = "MM月DD日,dddd") => {
 	return moment(dateStr).format(pattern);
 })
 
+// 新建一个全局方法，用于拷贝对象
+/** 
+ * 拷贝对象的方法
+ * @param {Object} oldObject 要拷贝的对象
+ * @return {Object} 新的对象 
+ * */
+Vue.prototype.$copyObject = function (oldObject){
+	let oldObjectStr = JSON.stringify(oldObject);
+	return JSON.parse(oldObjectStr);
+}
+
 // Vue.config.productionTip = false
 
 App.mpType = 'app'
