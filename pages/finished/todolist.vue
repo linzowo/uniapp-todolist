@@ -2,32 +2,35 @@
 	<div id="todolist_container">
 		<ul class="todolist_list">
 			<li class="todolist_list_item" v-for="(item, key) in getList" :key="key">
-				<i 
-				:class="[
-					'todolist_list_item--icons',
-					{
-						todo_finished:item.finished,
-						'uni-icons':item.finished
-					}
-				]"
-				@click="todoFinished(key)"
+				<i
+					:class="[
+						'todolist_list_item--icons',
+						{
+							todo_finished: item.finished,
+							'uni-icons': item.finished
+						}
+					]"
+					@click="todoUnfinished(key)"
 				>
-					{{item.finished?'':''}}
+					{{ item.finished ? '' : '' }}
 				</i>
 
-				<span class="todolist_list_item--content">
-					{{ item.content }}
-				</span>
+				<span class="todolist_list_item--content">{{ item.content }}</span>
 
-				<picker 
-				@change="bindPickerChange($event,key)" 
-				:value="index" 
-				:range="array"
-				class = "todo_type_selecter">
-					<view :class="['picker',typeClass[item.type]]">
-						{{ array[item.type-1] }}
-					</view>
-				</picker>
+				<view :class="[
+					'normal_btn',
+					'delete_btn',
+					'warning_btn',
+					{
+						warning_btn_hover:deleteBtnFlag
+					}
+					]"
+					@touchstart="deleteBtnFlag=true"
+					@touchend="deleteBtnFlag=false"
+					@click="deleteTodo(key)"
+				>
+					删除
+				</view>
 			</li>
 		</ul>
 	</div>
@@ -47,37 +50,32 @@ export default {
 				2: '重要',
 				3: '紧急'
 			},
-			index: 0,
-			array: ['普通', '重要', '紧急']
+			deleteBtnFlag:false
 		};
 	},
 	methods: {
-		/** 
+		/**
 		 * 根据用户选择的任务等级做出相应反应
 		 * @param {Object} e 默认事件参数
 		 * @param {Number} id 要修改的数据id
 		 * */
-		bindPickerChange(e,id) {
-			this.index = e.detail.value;
-			let newData = this.$copyObject(this.$store.state.todoList[id]);
-			newData.type = this.index+1;
-			this.$store.commit('changeTodoData',newData);
+		deleteTodo(id) {
+			this.$store.commit('deleteTodo', id);
 		},
-		/** 
+		/**
 		 * 用户点击了完成任务的按钮，修改用户点击的任务状态为完成
 		 * @param {Number} id 当前任务key值
 		 * */
-		todoFinished(id){
+		todoUnfinished(id) {
 			let newData = this.$copyObject(this.$store.state.todoList[id]);
-			newData.finished = true;
-			this.$store.commit('changeTodoData',newData);
+			newData.finished = false;
+			this.$store.commit('changeTodoData', newData);
 		}
 	},
-	filters: {
-	},
+	filters: {},
 	computed: {
 	  getList () {
-	    return this.$store.getters.getUnfinishedTodo
+	    return this.$store.getters.getfinishedTodo
 	  }
 	},
 	mounted: function() {}
@@ -104,6 +102,7 @@ export default {
 		margin-bottom: 2px;
 		border-radius: 3px;
 		display: flex;
+		// justify-content: space-between;
 		align-items: center;
 
 		.todolist_list_item--content {
@@ -129,5 +128,8 @@ export default {
 	}
 }
 
-
+.delete_btn{
+	margin-right: 10px;
+	margin-left: auto;
+}
 </style>

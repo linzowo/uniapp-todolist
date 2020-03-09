@@ -12,7 +12,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 /*每个页面公共css */
 i {
 	font-style: normal;
@@ -28,6 +28,32 @@ i {
 	box-sizing: border-box;
 }
 
+/* 使页面body高度与页面高度一致 */
+uni-page-body {
+	height: 100%;
+}
+
+/* 内容容器样式 */
+.todolist_content {
+	padding: 20px;
+	height: 95%;
+	background: url(./static/2560x1600.jpg) no-repeat;
+	-webkit-background-size: auto 100%;
+	background-size: auto 100%;
+
+	/* 页面顶部标题样式 */
+	header {
+		color: #fff;
+
+		h1 {
+			font-size: 30px;
+			margin-bottom: 10px;
+		}
+		p {
+			font-size: 13px;
+		}
+	}
+}
 /* #ifndef APP-NVUE */
 @font-face {
 	font-family: uniicons;
@@ -55,7 +81,7 @@ i {
 }
 
 /* 任务等级选择器 */
-.todo_type_selecter{
+.todo_type_selecter {
 	border: 1px solid #ccc;
 	margin-right: 10px;
 	margin-left: auto;
@@ -65,10 +91,32 @@ i {
 }
 
 /* 任务完成 */
-.todo_finished{
+.todo_finished {
 	text-align: center;
 	color: #ccc;
 	font-size: 14px;
 }
 
+/* button 样式 */
+
+/* 基础按钮 */
+.normal_btn {
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	font-size: 14px;
+}
+
+/* 警告色 */
+.warning_btn {
+	color: #fff;
+	background-color: #e64340;
+	border-color: #e64340;
+}
+
+.warning_btn_hover {
+	color: hsla(0, 0%, 100%, 0.6);
+	background-color: #ce3c39;
+}
 </style>

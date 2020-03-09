@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="todolist_content">
 		<header>
 			<h1>我的一天</h1>
 			<p class="date">{{ date | dateFormat }}</p>
@@ -28,29 +28,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-uni-page-body {
-	height: 100%;
-}
-.content {
-	padding: 20px;
-	height: 95%;
-	background: url(../../static/2560x1600.jpg) no-repeat;
-	-webkit-background-size: auto 100%;
-	background-size: auto 100%;
+.todolist_content {
 	
 	display: flex;
 	flex-direction: column;
-
-	header {
-		color: #fff;
-
-		h1 {
-			font-size: 30px;
-			margin-bottom: 10px;
-		}
-		p {
-			font-size: 13px;
-		}
-	}
 }
 </style>

@@ -119,6 +119,7 @@ export default {
 	.new_todo {
 		font-size: 14px;
 		flex: 1;
+		margin-right: 10px;
 	}
 }
 

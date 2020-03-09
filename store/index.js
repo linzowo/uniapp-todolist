@@ -30,6 +30,7 @@ const store = new Vuex.Store({
 		 * */
 		addNewTodo(state,newTodo) {
 			Vue.set(state.todoList,newTodo.addTime,newTodo);
+			// state.todoList[newTodo.addTime] = newTodo;
 		},
 		/** 
 		 * 修改已有数据参数值
@@ -51,9 +52,44 @@ const store = new Vuex.Store({
 				// Vue.set(state.todoList[newTodo.addTime],key,newTodo[key]);
 				state.todoList[newTodo.addTime][key] = newTodo[key];
 			}
+		},
+		/** 
+		 * 删除指定id的todo
+		 * @param {Number} id 要删除的数据key
+		 * */
+		deleteTodo(state,id){
+			// delete state.todoList[id];
+			Vue.delete(state.todoList,id);
 		}
 	},
-	getters: {}
+	getters: {
+		/**
+		 * 动态筛选数据中已完成的任务
+		 * @param {Object} todoList 包含所有任务的对象
+		 * @return {Object} 完成筛选后的任务对象
+		 * */
+		getfinishedTodo(state) {
+			let res = {};
+			for (let key in state.todoList) {
+				if (!state.todoList[key].finished) continue;
+				res[key] = state.todoList[key];
+			}
+			return res;
+		},
+		/** 
+		 * 动态筛选数据中未完成的任务
+		 * @param {Object} todoList 包含所有任务的对象
+		 * @return {Object} 完成筛选后的任务对象
+		 * */
+		getUnfinishedTodo(state){
+			let res = {}
+			for (let key in state.todoList) {
+				if(state.todoList[key].finished) continue;
+				res[key] = state.todoList[key];
+			}
+			return res;
+		}
+	}
 })
 
 export default store;
