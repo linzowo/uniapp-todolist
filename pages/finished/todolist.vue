@@ -22,11 +22,11 @@
 					'delete_btn',
 					'warning_btn',
 					{
-						warning_btn_hover:deleteBtnFlag
+						warning_btn_hover:!item.finished
 					}
 					]"
-					@touchstart="deleteBtnFlag=true"
-					@touchend="deleteBtnFlag=false"
+					@touchstart="item.finished=false"
+					@touchend="item.finished=true"
 					@click="deleteTodo(key)"
 				>
 					删除
@@ -49,8 +49,7 @@ export default {
 				1: '普通',
 				2: '重要',
 				3: '紧急'
-			},
-			deleteBtnFlag:false
+			}
 		};
 	},
 	methods: {
@@ -69,6 +68,7 @@ export default {
 		todoUnfinished(id) {
 			let newData = this.$copyObject(this.$store.state.todoList[id]);
 			newData.finished = false;
+			newData.finishedTime = null;
 			this.$store.commit('changeTodoData', newData);
 		}
 	},

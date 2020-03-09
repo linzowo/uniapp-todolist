@@ -70,6 +70,7 @@ export default {
 		todoFinished(id){
 			let newData = this.$copyObject(this.$store.state.todoList[id]);
 			newData.finished = true;
+			newData.finishedTime = new Date().getTime();
 			this.$store.commit('changeTodoData',newData);
 		}
 	},
