@@ -2,7 +2,7 @@
 
 uniapp框架开发一次多平台支持，这种诱惑又怎么抵挡得了呢。
 
-[查看demo](https://linzowo.ml/uniapp/todolist/)
+[查看demo](https://linzowo.gitee.io/uniapp/todolist/)
 
 
 
